@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
+const { caching, delCache } = require('../middleware/redis-cache');
 const {
     createTokenUser,
     attachCookiesToResponse,
@@ -9,7 +10,6 @@ const {
     singleImageUpload, 
     fileDelete
 } = require("../utils");
-const { caching, delCache } = require('../middleware/redis-cache');
 
 const getAllUsers = async (req,res) => {
     const users = await User.find({role:"user"}).select('-password -__v -verificationToken -passwordToken -passwordTokenExpirationDate');

@@ -17,7 +17,7 @@ function App() {
             <NavLink to="/" className="text-xl md:text-2xl font-bold">Forum Project</NavLink>
           </div>
           <div className="lg:flex hidden ">
-            <input type="text" className="bg-gray-100  w-80 pl-2 border-t border-l border-b rounded-tl rounded-bl" placeholder="Search" />
+            <input type="text" className="bg-gray-100  w-80 pl-2 border-t border-l border-b rounded-tl rounded-bl outline-0" placeholder="Search" />
             <div className="flex justify-center items-center bg-cyan-900	rounded py-2 px-4">
               <BiSearch size={20} color="white" />
             </div>

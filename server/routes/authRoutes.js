@@ -5,11 +5,11 @@ const { register,login,logout,verifyEmail,forgotPassword,resetPassword } =
 require("../controllers/authController");
 
 
-router.post("/register",register); //register
-router.post("/login",login); //login
-router.post("/verify-email",verifyEmail); //email verify
-router.post("/forgot-password",forgotPassword); //forgot password
-router.post("/reset-password",resetPassword); //reset password
-router.delete("/logout",authenticateUser,logout); //logout
+router.post("/register",register);
+router.post("/login",login);
+router.post("/verify-email",verifyEmail);
+router.post("/forgot-password",forgotPassword);
+router.post("/reset-password",resetPassword);
+router.delete("/logout",authenticateUser,logout);
 
 module.exports = router;

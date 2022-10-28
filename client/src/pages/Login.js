@@ -1,10 +1,18 @@
-import {useState} from "react"
+import { useContext, useEffect, useState } from "react"
+import {AuthContext} from "../context/AuthProvider"
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate()
+    
     const [data, setData] = useState({
         username: "",
         password: ""
     })
+    const [err, setErr] = useState()
+    const [{user},dispatch] = useContext(AuthContext);
+    
+
     const handleChange = (e) => {
         setData(prev => ({ ...prev, [e.target.name]: e.target.value }))
     }
@@ -17,9 +25,15 @@ const Login = () => {
             body: JSON.stringify(postData),
             headers: { 'Content-Type': 'application/json' },
         })
-        .then(res => res.json())
-        .then(resData => console.log(resData))
-        .catch(err=>console.log(err))
+            .then(res => res.json())
+            .then(resData => {
+                navigate('/')
+                const addUser = {name:resData.user.name,username:data.username,role:resData.user.role}
+                dispatch({type:"ADD_USER",payload:addUser})
+                localStorage.setItem("user",JSON.stringify(addUser))
+               
+            })
+            .catch(err => console.log(err))
     }
 
     return (<div>
@@ -35,6 +49,7 @@ const Login = () => {
                         <input name="password" id="password" value={data.password} onChange={(e) => handleChange(e)} type="password" placeholder="Password" className="border outline-none border-gray-100 py-2 px-4 rounded mt-2" />
                     </div>
                     <button className="bg-cyan-500 mb-3 mt-2 py-2 text-white flex justify-center w-full rounded font-semibold">Login</button>
+                    
                     <div className="flex justify-center space-x-3">
                         <a href="" className="text-sm">Forgot Password</a>
                         <a href="" className="text-sm">Reset Password</a>

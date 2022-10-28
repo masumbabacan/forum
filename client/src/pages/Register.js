@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react"
+import {AuthContext} from "../context/AuthProvider"
 
 const Register = () => {
     const [data, setData] = useState({
@@ -10,6 +11,8 @@ const Register = () => {
     })
     const [err, setErr] = useState();
 
+    const [{user},dispatch] = useContext(AuthContext);
+
     //const URL = "http://localhost:3000/api/forum";
 
     const handleChange = (e) => {
@@ -18,14 +21,22 @@ const Register = () => {
 
     const register = (e) => {
         e.preventDefault();
+
         const postData = { email: data.email, name: data.name, surname: data.surname, username: data.username, password: data.password }
         fetch('http://localhost:3000/api/forum/auth/register', {
             method: 'POST',
             body: JSON.stringify(postData),
             headers: { 'Content-Type': 'application/json' },
         })
-        .then(res => res.json())
-        .then(resData => console.log(resData))
+            .then(res => res.json())
+            .then(resData => {
+                if (resData.msg === "İşlem başarılı! Lütfen hesabınızı doğrulamak için e-postanızı kontrol edin") {
+                    const addUser = {name:data.name,username:data.username,role:""}
+                    dispatch({ type: "ADD_USER",payload:addUser})
+                    localStorage.setItem("user",JSON.stringify(addUser))
+                }
+            }
+            )
     }
 
     return (<div>

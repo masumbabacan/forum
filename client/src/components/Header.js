@@ -11,6 +11,9 @@ const Header = () => {
     const [openModal,setOpenModal] = useState(false);
     const btnRef = useRef();
 
+    useEffect(()=>{
+        console.log(localData)
+    },[])
     const modal = () => {
         setOpenModal(!openModal)
     }
@@ -33,7 +36,7 @@ const Header = () => {
             <div className="space-x-1 md:space-x-3 box-border ">
                 {
                     ! localData ? <> <NavLink to="login" className="py-3 px-5 text-sm box-border w-20 h-10 border-2 border-cyan-900 bg-white text-cyan-900 font-semibold rounded">Login</NavLink>
-                        <NavLink to="register" className="py-3 px-5 text-sm box-border w-20 h-10 bg-cyan-900 text-white  font-semibold  rounded">Sign Up</NavLink></> : <div className="flex items-center text-gray-500"><BsPersonCircle color="#6b7280" size={25} />{openModal ? <div className="bg-gray-50 absolute border border-gray-300 right-0 top-12 py-3 px-4 rounded w-40 flex flex-col" ><div className="flex justify-end rounded" onClick={()=>modal()}><span className="absolute -top-3 -right-2 w-6 h-6 text-center text-white rounded-full bg-purple-200" >x</span></div><button>Kullanıcı Bilgileri</button><button onClick={()=>logout()}>Çıkış Yap</button></div> : ""} <span className="font-medium ml-2" onClick={()=>modal()} >{parse.name}</span> </div>
+                        <NavLink to="register" className="py-3 px-5 text-sm box-border w-20 h-10 border-2 border-cyan-900 bg-cyan-900 text-white  font-semibold  rounded">Sign Up</NavLink></> : <div className="flex items-center text-gray-500"><BsPersonCircle color="#6b7280" size={25} />{openModal ? <div className="bg-gray-50 absolute border border-gray-300 right-0 top-12 py-3 px-4 rounded w-40 flex flex-col" ><div className="flex justify-end rounded" onClick={()=>modal()}><span className="absolute -top-3 -right-2 w-6 h-6 text-center text-white rounded-full bg-purple-200" >x</span></div><button>Kullanıcı Bilgileri</button><button onClick={()=>logout()}>Çıkış Yap</button></div> : ""} <span className="font-medium ml-2" onClick={()=>modal()} >{parse.username}</span> </div>
                 }
             </div>
         </div>

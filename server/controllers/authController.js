@@ -49,7 +49,6 @@ const login = async (req,res) => {
     if (!user) throw new CustomError.UnauthenticatedError("Geçersiz kimlik bilgileri");
     const isPasswordCorrect = await user.comparePassword(password);
     if (!isPasswordCorrect) throw new CustomError.BadRequestError("Geçersiz kimlik bilgileri");
-    if (!user.isVerified) throw new CustomError.UnauthenticatedError("Email adresinizi doğrulayın");
     const tokenUser = createTokenUser(user);
     let refreshToken = '';
     const existingToken = await Token.findOne({ user : user._id });

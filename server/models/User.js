@@ -5,13 +5,11 @@ const bcrypt = require("bcryptjs");
 const UserSchema = new mongoose.Schema({
     name : {
         type : String,
-        required : [true,"Lütfen isim giriniz"],
         minLength : [2,"isim en az 2 karakter olmalıdır"],
         maxLength : [50,"isim en fazla 50 karakter olmalıdır"]
     },
     surname : {
         type : String,
-        required : [true,"Lütfen soyisim giriniz"],
         minLength : [2,"soyisim en az 2 karakter olmalıdır"],
         maxLength : [50,"soyisim en fazla 50 karakter olmalıdır"]
     },
@@ -35,9 +33,6 @@ const UserSchema = new mongoose.Schema({
         type : String,
         required : [true,"Lütfen şifre giriniz"],
         minLength : [6,"Şifre en az 6 karakter olmalıdır"],
-    },
-    image : {
-        type : String,
     },
     role : {
         type : String,

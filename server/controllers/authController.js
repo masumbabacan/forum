@@ -13,21 +13,21 @@ const {
 } = require("../utils/index");
 
 const register = async (req,res) => {
-    const { email, name, surname,username, password } = req.body;
+    const { email, username, password } = req.body;
     const emailExist = await User.findOne({email});
     if (emailExist) throw new CustomError.BadRequestError("Email daha önceden alınmış");
     const usernameExist = await User.findOne({username});
     if (usernameExist) throw new CustomError.BadRequestError("kullanıcı adı daha önceden alınmış");
     const verificationToken = crypto.randomBytes(40).toString('hex');
-    const user = await User.create({name,surname,email,username,password,verificationToken});
-    if (!user) throw new CustomError.BadRequestError("Bir hata oluştu");
     const origin = 'http://localhost:3000/api/forum/auth';
     await sendVerificationEmail({
-        name : name,
+        name : username,
         email : email,
         verificationToken : verificationToken,
         origin : origin,
     });
+    const user = await User.create({email,username,password,verificationToken});
+    if (!user) throw new CustomError.BadRequestError("Bir hata oluştu");
     res.status(StatusCodes.CREATED).json({msg : "İşlem başarılı! Lütfen hesabınızı doğrulamak için e-postanızı kontrol edin"});
 }
 
@@ -90,7 +90,7 @@ const forgotPassword = async (req,res) => {
     const passwordToken = crypto.randomBytes(70).toString("hex");
     const origin = 'http://localhost:3000/api/v1/auth';
     await sendResetPasswordEmail({
-        name:user.name,
+        name:user.username,
         email:user.email,
         token: passwordToken,
         origin : origin,

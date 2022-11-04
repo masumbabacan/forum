@@ -17,9 +17,12 @@ const fileUpload = require('express-fileupload');
 //database
 const connectDB = require("./db/connect");
 
+
 //routers
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
+const postRouter = require("./routes/postRoutes");
+const categoryRouter = require("./routes/categoryRoutes");
 
 //middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -35,6 +38,8 @@ app.use(fileUpload());
 //apples
 app.use("/api/forum/auth",authRouter);
 app.use("/api/forum/users",userRouter);
+app.use("/api/forum/posts",postRouter);
+app.use("/api/forum/categories",categoryRouter);
 
 
 app.use(notFoundMiddleware);

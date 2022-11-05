@@ -3,10 +3,12 @@ import axios from "axios"
 import ToastMessage from "../utils/ToastMessage"
 
 const initialState = {
-    user: {},
+    user: false,
     loading: false,
     error:false,
-    msg:""
+    msg:"",
+    status:"",
+    test:true
 } 
 
 export const signInUser = createAsyncThunk('signInUser', async (postData,{rejectWithValue}) => {
@@ -17,7 +19,7 @@ export const signInUser = createAsyncThunk('signInUser', async (postData,{reject
         },
         withCredentials: true
     })
-    console.log("başarılı");
+    // console.log("başarılı");
     return {resData:res.data,postData};
     } catch (error) {
         return rejectWithValue(error.response.data)
@@ -38,11 +40,18 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         addUser: (state, action) => {
-            state.user = JSON.parse(localStorage.getItem('user'));
+            // console.log(action)
+            state.status=action.payload.status;
+            state.user=action.payload.data;
+            //state.loading=true;
         },
         removeUser:(state,action)=>{
-            state.user=""
-            localStorage.removeItem('user')
+            state.user=false
+            
+            // ToastMessage(action.payload.msg,true);
+        },
+        testF:(state,action)=>{
+            state.test = false;
         }
     },
     extraReducers:(builder)=> {
@@ -52,9 +61,9 @@ const authSlice = createSlice({
      });
      builder.addCase(signUpUser.fulfilled,(state,action)=>{
         state.loading=false
-        state.data=action.payload.postData;
+        state.user=action.payload.postData;
         ToastMessage(action.payload.resData.msg,true);
-        localStorage.setItem("user",JSON.stringify(action.payload.postData));
+        //localStorage.setItem("user",JSON.stringify(action.payload.postData));
      });
      builder.addCase(signUpUser.rejected,(state,action)=>{
         state.loading=false
@@ -64,12 +73,14 @@ const authSlice = createSlice({
      builder.addCase(signInUser.pending,(state,action)=>{
         state.loading=true
         state.error=""
+        state.test=false
      });
      builder.addCase(signInUser.fulfilled,(state,action)=>{
         state.loading=false
-        state.data=action.payload.postData;
+        state.user=action.payload.postData;
         ToastMessage(action.payload.resData.msg,true);
-        localStorage.setItem("user",JSON.stringify(action.payload.postData));
+        
+        //localStorage.setItem("user",JSON.stringify(action.payload.postData));
      });
      builder.addCase(signInUser.rejected,(state,action)=>{
         state.loading=false
@@ -78,5 +89,5 @@ const authSlice = createSlice({
      });
     }
 })
-export const { addUser,removeUser } = authSlice.actions
+export const { addUser,removeUser,testF } = authSlice.actions
 export default authSlice.reducer

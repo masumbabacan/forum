@@ -22,13 +22,15 @@ const Login = () => {
     const login = async (e) => {
         e.preventDefault();
         const postData = { username: data.username, password: data.password }
-        dispatch(signInUser(postData)).then(() => {
-            setTimeout(() => {
-                if(localStorage.getItem('user')){
-                    navigate('/')
-                }
-            }, 2000);
-            
+        dispatch(signInUser(postData)).then((res) => {
+            if (res.payload.msg === "Geçersiz kimlik bilgileri") {
+            } else {
+                setTimeout(() => {
+                       if(user){
+                        navigate('/')
+                       }
+                }, 2000);
+            }
         })
     }
 

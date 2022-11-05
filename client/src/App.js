@@ -9,16 +9,31 @@ import Footer from "./components/Footer"
 import Pages404 from "./pages/Pages404"
 import PrivateRoute from "./components/PrivateRoute"
 import PostDetail from "./pages/PostDetail"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { testF } from "./store/authSlice";
 
 function App() {
+  const { user,test} = useSelector(state => state.auth);
+  const dispatch = useDispatch()
+
+  const res = async () => {
+    await dispatch(testF())
+  }
+  useEffect(()=>{
+    res()
+  },[])
+
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col justify-between">
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/post/:id" element={<PostDetail />} />
-        <Route path="/login" element={<PrivateRoute><Login /></PrivateRoute>} />
-        <Route path="/register" element={<PrivateRoute><Register /></PrivateRoute>} />
+        <Route element={<PrivateRoute user={user} />} >
+          <Route path="/login" element={<Login/>} />
+          <Route path="/register" element={<Register />} />
+        </Route>
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="*" element={<Pages404 />} />

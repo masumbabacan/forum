@@ -39,32 +39,16 @@ const Login = () => {
                 navigate('/')
                 const addUser = {name:response.user.name,username:data.username,role:response.user.role}
                 dispatch({type:"ADD_USER",payload:addUser})
-<<<<<<< Updated upstream
-=======
+
                 localStorage.setItem("user",JSON.stringify(addUser))
                 console.log("başarılı")
-               
->>>>>>> Stashed changes
+
             })
             .catch((err) => {
                 ToastMessage(err.response.data.msg, false);
                 setLoading(false)
             })
 
-        // fetch('http://localhost:3000/api/forum/auth/login', {
-        //     method: 'POST',
-        //     body: JSON.stringify(postData),
-        //     headers: { 'Content-Type': 'application/json' },
-        // })
-        //     .then(res => res.json())
-        //     .then(resData => {
-        //         navigate('/')
-        //         const addUser = {name:resData.user.name,username:data.username,role:resData.user.role}
-        //         dispatch({type:"ADD_USER",payload:addUser})
-        //         localStorage.setItem("user",JSON.stringify(addUser))
-
-        //     })
-        //     .catch(err => console.log(err))
     }
 
     return (<div>

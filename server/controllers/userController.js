@@ -21,7 +21,8 @@ const getUser = async (req,res) => {
 
 const showCurrentUser = async (req,res) => {
     const user = await User.findOne({_id : req.user.userId}).select('-password -__v -verificationToken -passwordToken -passwordTokenExpirationDate');
-    res.status(StatusCodes.OK).json({data : user});
+    
+    res.status(StatusCodes.OK).json({data : user, status : StatusCodes.OK});
 }
 
 const updateUser = async (req,res) => {

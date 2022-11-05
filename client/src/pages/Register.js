@@ -1,9 +1,13 @@
 import { useContext, useState } from "react"
 import { AuthContext } from "../context/AuthProvider"
+<<<<<<< Updated upstream
 import Loading from "../components/Loading"
 import { ToastContainer } from 'react-toastify';
 import axios from "axios"
 import ToastMessage from "../utils/ToastMessage"
+=======
+import { useNavigate } from "react-router-dom";
+>>>>>>> Stashed changes
 
 const Register = () => {
     const [data, setData] = useState({
@@ -13,10 +17,17 @@ const Register = () => {
         username: "",
         password: ""
     })
+<<<<<<< Updated upstream
 
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState();
     const [msg, setMsg] = useState("");
+=======
+    const navigate = useNavigate()
+    const [err, setErr] = useState();
+
+    const [{ user }, dispatch] = useContext(AuthContext);
+>>>>>>> Stashed changes
 
     const [{ user }, dispatch] = useContext(AuthContext);
 
@@ -38,6 +49,19 @@ const Register = () => {
             ToastMessage(err.response.data.msg, false);
             setLoading(false)
         })
+<<<<<<< Updated upstream
+=======
+            .then(res => res.json())
+            .then(resData => {
+                if (resData.msg === "İşlem başarılı! Lütfen hesabınızı doğrulamak için e-postanızı kontrol edin") {
+                    const addUser = { name: data.name, username: data.username, role: "" }
+                    dispatch({ type: "ADD_USER", payload: addUser })
+                    localStorage.setItem("user", JSON.stringify(addUser))
+                    navigate('/')
+                }
+            }
+            )
+>>>>>>> Stashed changes
     }
 
 

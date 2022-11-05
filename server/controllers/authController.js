@@ -13,7 +13,12 @@ const {
 } = require("../utils/index");
 
 const register = async (req,res) => {
+<<<<<<< Updated upstream
     const { email, username, password } = req.body;
+=======
+    const { email, name, surname,username, password } = req.body;
+    console.log(req.body);
+>>>>>>> Stashed changes
     const emailExist = await User.findOne({email});
     if (emailExist) throw new CustomError.BadRequestError("Email daha önceden alınmış");
     const usernameExist = await User.findOne({username});

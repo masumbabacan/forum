@@ -11,9 +11,8 @@ import PrivateRoute from "./components/PrivateRoute"
 import PostDetail from "./pages/PostDetail"
 
 function App() {
-
   return (
-    <div className="bg-gray-100">
+    <div className="bg-gray-100 min-h-screen flex flex-col justify-between">
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -26,9 +25,7 @@ function App() {
       </Routes>
       <Footer />
     </div>
-
   )
-
 }
 
 export default App;

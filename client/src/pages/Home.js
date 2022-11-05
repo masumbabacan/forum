@@ -1,7 +1,6 @@
 import PostList from "../components/PostList";
 import Category from "../components/Category";
 import PostPopular from "../components/PostPopuler";
-import { useEffect } from "react";
 
 const Home = () => {
    

@@ -1,5 +1,3 @@
-import { AiFillEye, AiOutlineComment } from "react-icons/ai";
-
 const SkeletonPost = () => {
     return (
     <>

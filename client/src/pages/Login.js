@@ -52,7 +52,7 @@ const Login = () => {
                         Giriş Yap
                     </button>
                     <div className="flex justify-end align-center space-x-3">
-                        <Link to="" className="text-sm font-medium text-red-700">Şifremi unuttum</Link>
+                        <Link to="/reset-password" className="text-sm font-medium text-red-700">Şifremi unuttum</Link>
                     </div>
                 </form>
             </div>

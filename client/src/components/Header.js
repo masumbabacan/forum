@@ -49,7 +49,7 @@ const Header = () => {
                 ToastMessage(res.data.msg, true)
                 setTimeout(() => {
                     window.location.reload();
-                }, 1500)
+                }, 2000)
             }
         })
         setOpenModal(false)

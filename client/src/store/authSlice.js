@@ -61,7 +61,7 @@ const authSlice = createSlice({
      });
      builder.addCase(signUpUser.fulfilled,(state,action)=>{
         state.loading=false
-        state.user=action.payload.postData;
+        state.user=false;
         ToastMessage(action.payload.resData.msg,true);
         //localStorage.setItem("user",JSON.stringify(action.payload.postData));
      });

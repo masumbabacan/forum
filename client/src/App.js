@@ -9,20 +9,11 @@ import Footer from "./components/Footer"
 import Pages404 from "./pages/Pages404"
 import PrivateRoute from "./components/PrivateRoute"
 import PostDetail from "./pages/PostDetail"
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { testF } from "./store/authSlice";
+import { useSelector } from "react-redux";
+
 
 function App() {
   const { user,test} = useSelector(state => state.auth);
-  const dispatch = useDispatch()
-
-  const res = async () => {
-    await dispatch(testF())
-  }
-  useEffect(()=>{
-    res()
-  },[])
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col justify-between">

@@ -2,7 +2,7 @@ import { useState } from "react"
 import Loading from "../components/Loading"
 import { ToastContainer } from 'react-toastify';
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate, Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signUpUser } from "../store/authSlice"
 
 const Register = () => {
@@ -23,13 +23,12 @@ const Register = () => {
     const register = (e) => {
         e.preventDefault();
         const postData = { email: data.email, username: data.username, password: data.password }
-        dispatch(signUpUser(postData)).then(() => {
-            setTimeout(() => {
-                if(localStorage.getItem('user')){
-                    navigate('/')
-                }
-            }, 2000);
-            
+        dispatch(signUpUser(postData)).then((res) => {
+            if (res.meta.requestStatus !== "rejected") {
+                setTimeout(() => {
+                    navigate('/login');
+                }, 1500);
+            }
         })
     }
 
@@ -57,7 +56,7 @@ const Register = () => {
                         </button>
                     </div>
                     <div className="flex justify-end align-center space-x-3">
-                        <Link to="/" className="text-sm font-medium text-red-700">Hesabım var</Link>
+                        <Link to="/login" className="text-sm font-medium text-red-700">Hesabım var</Link>
                     </div>
                 </form>
             </div>
